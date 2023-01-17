@@ -6,7 +6,7 @@
 #include<string>
 
 using namespace std;
-int seedChanger = 0;
+int seedChanger = 0; //global variable is not optimal but was the easiest solution, this should be changed later
 class Enemy
 {
 public:
@@ -38,12 +38,11 @@ public:
 class Battler
 {
 public:
-    static int randomNum(int min, int max)
+    static int randomNum(int min, int max) //generates a random number between a minimum and maximum
     {
-        //int seedChanger = 0;
-        srand(time(NULL) + seedChanger);
+        srand(time(NULL) + seedChanger); //generates a random seed
         int generatedNum = rand() % (max - min + 1) + min;
-        seedChanger = seedChanger + 1;
+        seedChanger = seedChanger + 1; //changes the seed each time it is called, since time based seeds are God's biggest mistake
         return(generatedNum);
     }
     static void battle(Player player, Enemy enemy, int battleTimes)
@@ -100,7 +99,6 @@ public:
     }
     void statsAndDisplay()
     {
-        //seedChanger = 0;
         //Health, Roll under, Damage, Points
         Enemy Goblin(8, 3, 6, "Goblin");
         Enemy Spider(7, 5, 5, "Spider");
@@ -119,25 +117,25 @@ public:
         Enemy Reaper(20, 1, 12, "Reaper");
         Enemy Cedrik(40, 3, 10, "Cedrik");
 
-        //Health, attack, defence
+        //Health, Attack, Defence
         Player player1(5, 2, 3); //low level player
         Player player2(7, 5, 4); //medium level player
         Player player3(7, 7, 6); //high level player
         Player player4(8, 10, 8); //overleveled player - should win almost every fight
 
         //sets the enemy then makes them all fight
-        Enemy currentEnemy = RatKing;
+        Enemy currentEnemy = Cedrik; //replace this with the enemy that you want to simulate the fights with
         cout << "\n\n----------";
-        cout << "\nLowest Power\n";
+        cout << "\nLowest Level Player\n";
         battle(player1, currentEnemy, 1000000);
         cout << "\n\n----------";
-        cout << "\nMedium Power\n";
+        cout << "\nMedium Level Player\n";
         battle(player2, currentEnemy, 1000000);
         cout << "\n\n----------";
-        cout << "\nHigh Power\n";
+        cout << "\nHigh Level Player\n";
         battle(player3, currentEnemy, 1000000);
         cout << "\n\n----------";
-        cout << "\nOverpowered\n";
+        cout << "\nOverleveled Player\n";
         battle(player4, currentEnemy, 1000000);
     }
 };
